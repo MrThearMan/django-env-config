@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Configuration - Django Environment Config</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/docs.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Configuration";
+        var mkdocs_page_input_path = "config.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/console.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/json.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Django Environment Config
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../basics/">Basics</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="#">Configuration</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#loading-the-environment">Loading the Environment</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#value-descriptors">Value Descriptors</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#value">Value</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#stringvalue">StringValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#booleanvalue">BooleanValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#integervalue">IntegerValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#positiveintegervalue">PositiveIntegerValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#floatvalue">FloatValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#decimalvalue">DecimalValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#importstringvalue">ImportStringValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#sequencevalue">SequenceValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#listvalue">ListValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#tuplevalue">TupleValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setvalue">SetValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mappingvalue">MappingValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#dictvalue">DictValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#jsonvalue">JsonValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#emailvalue">EmailValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#urlvalue">URLValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#ipvalue">IPValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#regexvalue">RegexValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#pathvalue">PathValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#databaseurlvalue">DatabaseURLValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cacheurlvalue">CacheURLValue</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#parentvalue">ParentValue</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#computed-properties">Computed properties</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-mixins">Configuration mixins</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../hooks/">Hooks</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing/">Testing</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Django Environment Config</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">🔗</a></h1>
+<h2 id="loading-the-environment">Loading the Environment<a class="headerlink" href="#loading-the-environment" title="Permanent link">🔗</a></h2>
+<p>The library supports configurable settings using <a href="#value-descriptors">"value descriptors"</a>.
+These descriptors are used to define settings that can change their values
+based on a <code>.env</code> file or environment variables.</p>
+<p>By default, Environment-classes will look for a <code>.env</code> file from the current
+working directory up to the root using the <a href="https://github.com/theskumar/python-dotenv">python-dotenv</a> library.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment):
+    DEBUG = values.BooleanValue()</code></pre>
+<p>In case you want to use environment variables instead:</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment, use_environ=True):
+    DEBUG = values.BooleanValue()</code></pre>
+<p>If a value matching the setting's name is found from the configured location,
+it will be used to set the value of the setting, given the specific descriptor
+is able to convert it to the type it expects.</p>
+<p>You can also set the path for the <code>.env</code> file directly if you wish.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment, dotenv_path="/path/to/.env"):
+    DEBUG = values.BooleanValue()</code></pre>
+<p>Or you can disable the loading the <code>.env</code> file altogether.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment, dotenv_path=None):
+    DEBUG = values.BooleanValue()</code></pre>
+<p>However, doing this with the above configuration will raise an error,
+since we cannot determine the value for <code>DEBUG</code>. Similarly, an error would be raised
+if the <code>.env</code> if loaded, but it does not contain a matching value for the setting.</p>
+<p>Therefore, we must set a default value in the descriptor for these cases.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment):
+    DEBUG = values.BooleanValue(default=False)</code></pre>
+<p>The default value can also be <code>None</code>, but note that doing this will also skip
+the normal value conversion based on the descriptor type.</p>
+<p>In case the name of the setting in the <code>.env</code> file or environment is different from the
+name of the setting in the Environment class, you can specify the name of the matching
+setting in the descriptor using <code>env_name</code>.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment):
+    DEBUG = values.BooleanValue(env_name="DJANGO_DEBUG_MODE")</code></pre>
+<p>Setting <code>env_name</code> to <code>None</code> will make the descriptor always use the default value,
+even if the loaded environment contains a value for the setting. This can be useful
+if the value descriptor contains some useful validation or conversion logic that you
+want to use when setting the value.</p>
+<h2 id="value-descriptors">Value Descriptors<a class="headerlink" href="#value-descriptors" title="Permanent link">🔗</a></h2>
+<h3 id="value">Value<a class="headerlink" href="#value" title="Permanent link">🔗</a></h3>
+<p>The base class for all value descriptors. This is an abstract class that can't be
+used directly. All subclasses must implement the <code>convert</code> method, and can be initialized
+with the following arguments:</p>
+<ul>
+<li><code>default</code>: The default value for the setting. If not set, a value for the setting
+  must be found from the <code>.env</code> file or environment, or an exception will be raised.</li>
+<li><code>env_name</code>: The name of the setting in the <code>.env</code> file or environment. If not set,
+  the name of the setting in the Environment class is used. If set to <code>None</code>, the
+  descriptor will always use the <code>default</code> value.</li>
+</ul>
+<h3 id="stringvalue">StringValue<a class="headerlink" href="#stringvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for string values. The <code>convert</code> method will return the value as is.</p>
+<h3 id="booleanvalue">BooleanValue<a class="headerlink" href="#booleanvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for boolean values. The <code>convert</code> method will return <code>True</code> if the
+value is one of the following (case-insensitive): <code>yes</code>, <code>y</code>, <code>true</code>, <code>1</code> or <code>False</code>
+if it's one of the following (case-insensitive): <code>no</code>, <code>n</code>, <code>false</code>, <code>0</code> or <code>""</code>.
+Otherwise, an exception will be raised.</p>
+<h3 id="integervalue">IntegerValue<a class="headerlink" href="#integervalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for integer values. The <code>convert</code> method will return the value as an
+integer if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="positiveintegervalue">PositiveIntegerValue<a class="headerlink" href="#positiveintegervalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for positive integer values. The <code>convert</code> method will return the value
+as an integer if it can be converted and is greater than zero. Otherwise, an exception will
+be raised.</p>
+<h3 id="floatvalue">FloatValue<a class="headerlink" href="#floatvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for float values. The <code>convert</code> method will return the value as a float
+if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="decimalvalue">DecimalValue<a class="headerlink" href="#decimalvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for decimal values. The <code>convert</code> method will return the value as a
+decimal if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="importstringvalue">ImportStringValue<a class="headerlink" href="#importstringvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for string values that should be importable. The <code>convert</code> method will
+return the imported value if it can be imported. Otherwise, an exception will be raised.</p>
+<h3 id="sequencevalue">SequenceValue<a class="headerlink" href="#sequencevalue" title="Permanent link">🔗</a></h3>
+<p>An abstract value descriptor for sequences like lists, tuples, and sets. Cannot be used directly.
+Accepts the following additional arguments:</p>
+<ul>
+<li><code>child</code>: A value descriptor to use for the list items. If not set, the items will
+  be returned as strings.</li>
+<li><code>delimiter</code>: The delimiter to use when splitting the string into a list. Defaults to <code>,</code>.</li>
+</ul>
+<h3 id="listvalue">ListValue<a class="headerlink" href="#listvalue" title="Permanent link">🔗</a></h3>
+<p>A <a href="#SequenceValue">SequenceValue</a> descriptor for lists. The <code>convert</code> method will return the value as a
+list if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="tuplevalue">TupleValue<a class="headerlink" href="#tuplevalue" title="Permanent link">🔗</a></h3>
+<p>A <a href="#SequenceValue">SequenceValue</a> descriptor for tuples. The <code>convert</code> method will return the value as a
+tuple if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="setvalue">SetValue<a class="headerlink" href="#setvalue" title="Permanent link">🔗</a></h3>
+<p>A <a href="#SequenceValue">SequenceValue</a> descriptor for sets. The <code>convert</code> method will return the value as a
+sets if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="mappingvalue">MappingValue<a class="headerlink" href="#mappingvalue" title="Permanent link">🔗</a></h3>
+<p>An abstract value descriptor for sequences like dicts. Cannot be used directly.
+Accepts the following additional arguments:</p>
+<ul>
+<li><code>child</code>: A value descriptor to use for the dict values. If not set, the items will
+  be returned as strings.</li>
+<li><code>kv_delimiter</code>: The delimiter to use when splitting items into keys and values. Defaults to <code>=</code>.</li>
+<li><code>item_delimiter</code>: The delimiter to use when splitting the string list of key-value pairs. Defaults to <code>;</code>.</li>
+</ul>
+<h3 id="dictvalue">DictValue<a class="headerlink" href="#dictvalue" title="Permanent link">🔗</a></h3>
+<p>A <a href="#MappingValue">MappingValue</a> descriptor for dicts. The <code>convert</code> method will return the value as a
+dict if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="jsonvalue">JsonValue<a class="headerlink" href="#jsonvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for JSON values. The <code>convert</code> method will return the value as a
+valid JSON value if it can be converted. Otherwise, an exception will be raised.</p>
+<h3 id="emailvalue">EmailValue<a class="headerlink" href="#emailvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for email values. The <code>convert</code> method will return the value as is
+if it's a valid email address. Otherwise, an exception will be raised.</p>
+<h3 id="urlvalue">URLValue<a class="headerlink" href="#urlvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for URL values. The <code>convert</code> method will return the value as is
+if it's a valid URL. Otherwise, an exception will be raised.</p>
+<h3 id="ipvalue">IPValue<a class="headerlink" href="#ipvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for IP address values. The <code>convert</code> method will return the value as is
+if it's a valid IP address. Otherwise, an exception will be raised.</p>
+<h3 id="regexvalue">RegexValue<a class="headerlink" href="#regexvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for values that should match a regular expression.
+Accepts the following additional arguments:</p>
+<ul>
+<li><code>regex</code>: The regular expression pattern to match.</li>
+</ul>
+<p>The <code>convert</code> method will return the value as is if it matches the regular expression.
+Otherwise, an exception will be raised.</p>
+<h3 id="pathvalue">PathValue<a class="headerlink" href="#pathvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for directory path values. Accepts the following additional arguments:</p>
+<ul>
+<li><code>check_exists</code>: Whether to check if the path exists or not. Defaults to <code>True</code>.</li>
+<li><code>create_if_missing</code>: If <code>True</code>, create the path if it doesn't exist. Defaults to <code>False</code>.</li>
+<li><code>mode</code>: The mode to use when creating the path if it doesn't exist. Defaults to <code>0o777</code>.</li>
+</ul>
+<p>The <code>convert</code> method will return the value as is if it's a valid directory path.
+Otherwise, an exception will be raised.</p>
+<h3 id="databaseurlvalue">DatabaseURLValue<a class="headerlink" href="#databaseurlvalue" title="Permanent link">🔗</a></h3>
+<blockquote>
+<p>Requires the <code>db</code> extra dependency to be installed.
+<pre class="highlight"><code>pip install django-environment-config[db]</code></pre></p>
+</blockquote>
+<p>A value descriptor for configuring the <code>DATABASES</code> setting in Django. It uses the <a href="https://github.com/jazzband/dj-database-url/">dj_database_url</a>
+library to parse the setting from a <code>DATABASE_URL</code> environment variable. See the library for more details.</p>
+<p>The <code>convert</code> method will convert the value to a dictionary that can be used as the <code>DATABASES</code> setting,
+if it can be parsed. Otherwise, an exception will be raised.</p>
+<h3 id="cacheurlvalue">CacheURLValue<a class="headerlink" href="#cacheurlvalue" title="Permanent link">🔗</a></h3>
+<blockquote>
+<p>Requires the <code>cache</code> extra dependency to be installed.
+<pre class="highlight"><code>pip install django-environment-config[cache]</code></pre></p>
+</blockquote>
+<p>A value descriptor for configuring the <code>CACHES</code> setting in Django. It uses the <a href="https://pypi.org/project/django-cache-url/">django_cache_url</a>
+library to parse the setting from a <code>CACHE_URL</code> environment variable. See the library for more details.</p>
+<p>The <code>convert</code> method will convert the value to a dictionary that can be used as the <code>CACHES</code> setting,
+if it can be parsed. Otherwise, an exception will be raised.</p>
+<h3 id="parentvalue">ParentValue<a class="headerlink" href="#parentvalue" title="Permanent link">🔗</a></h3>
+<p>A value descriptor for getting the value from a parent class. Tries to find the value
+in method resolution order, but if no parent has a matching value, the default value
+(note: required for this descriptor) is used. Accepts the following additional arguments:</p>
+<ul>
+<li><code>child</code>: A value descriptor to use for the found value items. If not set, value will
+  be interpreted as a string.</li>
+<li><code>check_limit</code>: The maximum number of parents to check. Defaults to <code>None</code>, which means
+  the value will be looked up in all parents.</li>
+</ul>
+<p>The <code>convert</code> method will convert the found value using the child value descriptor converter.</p>
+<h2 id="computed-properties">Computed properties<a class="headerlink" href="#computed-properties" title="Permanent link">🔗</a></h2>
+<p>In addition to value descriptors and regular class attributes, you can also use
+classproperties to define computed settings. This can be useful if the setting
+requires values from other settings.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment, values
+
+class Example(Environment):
+    DEBUG = values.BooleanValue(default=False)
+
+    # Use the `@classmethod` and `@property` decorator
+    # to create a classproperty. Since its name is in
+    # upper-case, it will be treated as a setting.
+    @classmethod
+    @property
+    def LOG_LEVEL(cls):
+        return "DEBUG" if cls.DEBUG else "INFO"</code></pre>
+<blockquote>
+<p>Note that value descriptors are only bound to the environment values <em>after</em>
+the class is created, so if you try to use them in the class body before that,
+they will be plain classes, not descriptors.</p>
+<p>```python
+from env_config import Environment, values</p>
+<p>class Example(Environment):
+    DEBUG = values.BooleanValue(default=False)</p>
+<pre class="highlight"><code># Debug is still a BoolenValue instance, not a descriptor.
+# It will always be truthy, and so LOG_LEVEL will always be "DEBUG".
+LOG_LEVEL = "DEBUG" if DEBUG else "INFO"</code></pre>
+<p>```</p>
+</blockquote>
+<h2 id="configuration-mixins">Configuration mixins<a class="headerlink" href="#configuration-mixins" title="Permanent link">🔗</a></h2>
+<p>Mixin-classes can be a useful way to reuse setting for multiple environments.</p>
+<pre class="highlight"><code class="language-python">from env_config import Environment
+
+class Defaults:
+    ADMINS = []
+    ...
+
+class Local(Defaults, Environment):
+    pass
+
+class Prod(Defaults, Environment):
+    pass</code></pre>
+<p>One useful application for this is to provide a <code>local_settings.py</code> file that
+is ignored from versioning, and contains a mixin for overriding settings locally.</p>
+<pre class="highlight"><code class="language-python"># local_settings.py
+
+class LocalMixin:
+    DEBUG = True</code></pre>
+<pre class="highlight"><code class="language-python"># settings.py
+
+from env_config import Environment
+
+try:
+    from local_settings import LocalMixin
+except ImportError:
+    class LocalMixin: ...
+
+class Example(LocalMixin, Environment):
+    pass</code></pre>
+<p>Note, however, that mixins will not override values defined on the inheriting class.
+For this, you can use the <code>ParentValue</code> descriptor.</p>
+<pre class="highlight"><code class="language-python"># settings.py
+
+from env_config import Environment, values
+
+try:
+    from local_settings import LocalMixin
+except ImportError:
+    class LocalMixin: ...
+
+class Example(LocalMixin, Environment):
+    # Only check the LocalMixin class for the value,
+    # otherwise use the default value of False.
+    DEBUG = values.ParentValue(values.BooleanValue(), default=False, check_limit=1)</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../basics/" class="btn btn-neutral float-left" title="Basics"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../hooks/" class="btn btn-neutral float-right" title="Hooks">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../basics/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../hooks/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
